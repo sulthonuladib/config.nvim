@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const path = require('path')
+
+const lazy_path = path.join(
+    "/home",
+    process.env.USER,
+    ".local/share/nvim/lazy"
+);
+
+const lazy_plugins = fs.readdirSync(lazy_path);
+const lazy_runtime_libraries = lazy_plugins.map((folder) => {
+    return path.join(lazy_path, folder, "lua");
+});
+const current_lua_rc = require('./.luarc.json');
+const libraries = new Set(current_lua_rc['workspace.library']);
+
+lazy_runtime_libraries.forEach((plugin) => {
+    if (libraries.has(plugin)) {
+        return;
+    }
+
+    libraries.add(plugin);
+});
+
+
+current_lua_rc['workspace.library'] = Array.from(libraries);
+
+fs.writeFileSync("./.luarc.json", JSON.stringify(current_lua_rc, null, 4));
