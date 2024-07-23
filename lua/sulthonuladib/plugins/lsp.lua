@@ -22,11 +22,10 @@ return {
 				map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 				map("<leader>vd", vim.diagnostic.open_float, "Open [D]iagnostics")
-				map("<leader>]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
-				map("<leader>[d", vim.diagnostic.goto_prev, "Previous [D]iagnostic")
+				map("<leader>]d", vim.diagnostic.get_next, "Next [D]iagnostic")
+				map("<leader>[d", vim.diagnostic.get_prev, "Previous [D]iagnostic")
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-				map("<leader>vca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 				-- vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 				map("<leader>ih", function()
 					local enabled = vim.lsp.inlay_hint.is_enabled({})
@@ -166,5 +165,10 @@ return {
 				end,
 			},
 		})
+
+		-- lsp helper styling
+		local border = "rounded"
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 	end,
 }

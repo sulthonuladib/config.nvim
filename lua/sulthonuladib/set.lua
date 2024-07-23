@@ -35,7 +35,7 @@ opt.list = true
 
 -- opt.termguicolors = true
 
-opt.scrolloff = 8
+opt.scrolloff = 10
 opt.signcolumn = "yes"
 opt.isfname:append("@-@")
 
@@ -52,7 +52,7 @@ vim.o.title = true
 vim.opt.titlestring = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " - nvim"
 
 -- disable vim mark
-vim.opt.viminfo:remove('m')
+vim.opt.viminfo:remove("m")
 
 -- lazy nvim-tree integration, disable netrw
 vim.g.loaded_netrw = 1
@@ -60,13 +60,13 @@ vim.g.loaded_netrwPlugin = 1
 
 local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
 local set_cursorline = function(event, value, pattern)
-    vim.api.nvim_create_autocmd(event, {
-        group = group,
-        pattern = pattern,
-        callback = function()
-            vim.opt_local.cursorline = value
-        end,
-    })
+	vim.api.nvim_create_autocmd(event, {
+		group = group,
+		pattern = pattern,
+		callback = function()
+			vim.opt_local.cursorline = value
+		end,
+	})
 end
 
 set_cursorline("WinLeave", false)
