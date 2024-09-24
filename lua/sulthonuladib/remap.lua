@@ -32,7 +32,7 @@ set("n", "<C-j>", "<cmd>cprev<CR>zz")
 
 -- mark any word and press <leader>s to search and replace
 set(
-	"n", -- normal mode
-	"<leader>s",
-	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]
+  "n", -- normal mode
+  "<leader>s",
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]
 )

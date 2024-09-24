@@ -1,14 +1,14 @@
 local M = {}
 
-local builtin = require "el.builtin"
-local extensions = require "el.extensions"
-local subscribe = require "el.subscribe"
-local sections = require "el.sections"
+local builtin = require("el.builtin")
+local extensions = require("el.extensions")
+local subscribe = require("el.subscribe")
+local sections = require("el.sections")
 
 vim.opt.laststatus = 3
 
 M.setup = function()
-  require("el").setup {
+  require("el").setup({
     generator = function()
       local segments = {}
 
@@ -52,7 +52,7 @@ M.setup = function()
 
       return segments
     end,
-  }
+  })
 end
 
 M.setup()

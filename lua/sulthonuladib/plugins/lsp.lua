@@ -1,174 +1,193 @@
 return {
-	"neovim/nvim-lspconfig",
-	dependencies = {
-		{ "williamboman/mason.nvim", config = true },
-		"williamboman/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		{ "j-hui/fidget.nvim", opts = {} },
-		-- { "folke/neodev.nvim", opts = {} },
-	},
-	config = function()
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
-			callback = function(event)
-				local map = function(keys, func, desc)
-					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-				end
+  "neovim/nvim-lspconfig",
+  dependencies = {
+    { "williamboman/mason.nvim", config = true },
+    "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    { "j-hui/fidget.nvim", opts = {} },
+    -- { "folke/neodev.nvim", opts = {} },
+  },
+  config = function()
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+      callback = function(event)
+        local map = function(keys, func, desc)
+          vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+        end
 
-				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-				map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-				map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-				map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-				map("<leader>vd", vim.diagnostic.open_float, "Open [D]iagnostics")
-				map("<leader>]d", vim.diagnostic.get_next, "Next [D]iagnostic")
-				map("<leader>[d", vim.diagnostic.get_prev, "Previous [D]iagnostic")
-				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-				-- vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-				map("<leader>ih", function()
-					local enabled = vim.lsp.inlay_hint.is_enabled({})
-					vim.lsp.inlay_hint.enable(not enabled)
-				end, "[I]nlay [H]int")
+        local imap = function(keys, func, desc)
+          vim.keymap.set("i", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+        end
 
-				map("K", vim.lsp.buf.hover, "Hover Documentation")
-				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+        vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
+        imap("<C-h>", function()
+          vim.lsp.buf.signature_help()
+        end, "Signature [H]elp")
+        map("<leader>gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+        map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+        map("<leader>gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+        map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+        map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+        map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+        map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+        map("<leader>vd", vim.diagnostic.open_float, "Open [D]iagnostics")
+        map("<leader>]d", vim.diagnostic.get_next, "Next [D]iagnostic")
+        map("<leader>[d", vim.diagnostic.get_prev, "Previous [D]iagnostic")
+        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+        map("<leader>vca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+        map("<leader>ih", function()
+          local enabled = vim.lsp.inlay_hint.is_enabled({})
+          vim.lsp.inlay_hint.enable(not enabled)
+        end, "[I]nlay [H]int")
 
-				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client.server_capabilities.documentHighlightProvider then
-					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
-					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-						buffer = event.buf,
-						group = highlight_augroup,
-						callback = vim.lsp.buf.document_highlight,
-					})
+        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-						buffer = event.buf,
-						group = highlight_augroup,
-						callback = vim.lsp.buf.clear_references,
-					})
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client and client.server_capabilities.documentHighlightProvider then
+          local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            buffer = event.buf,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.document_highlight,
+          })
 
-					vim.api.nvim_create_autocmd("LspDetach", {
-						group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-						callback = function(event2)
-							vim.lsp.buf.clear_references()
-							vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
-						end,
-					})
-				end
-			end,
-		})
+          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            buffer = event.buf,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.clear_references,
+          })
 
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+          vim.api.nvim_create_autocmd("LspDetach", {
+            group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+            callback = function(event2)
+              vim.lsp.buf.clear_references()
+              vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
+            end,
+          })
+        end
+      end,
+    })
 
-		local servers = {
-			gopls = {
-				settings = {
-					gopls = {
-						analyses = {
-							unusedparams = true,
-						},
-						staticcheck = true,
-						hints = {
-							assignVariableTypes = true,
-							compositeLiteralFields = true,
-							compositeLiteralTypes = true,
-							constantValues = true,
-							functionTypeParameters = true,
-							parameterNames = true,
-							rangeVariableTypes = true,
-						},
-					},
-				},
-			},
-			-- pyright = {},
-			rust_analyzer = {},
-			-- LANG: Typescript and Javascript with tsserver
-			-- tsserver = {
-			-- 	settings = {
-			-- 		javascript = {
-			-- 			inlayHints = {
-			-- 				includeInlayEnumMemberValueHints = true,
-			-- 				includeInlayFunctionLikeReturnTypeHints = true,
-			-- 				includeInlayFunctionParameterTypeHints = true,
-			-- 				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-			-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-			-- 				includeInlayPropertyDeclarationTypeHints = true,
-			-- 				includeInlayVariableTypeHints = false,
-			-- 			},
-			-- 		},
-			--
-			-- 		typescript = {
-			-- 			inlayHints = {
-			-- 				includeInlayEnumMemberValueHints = true,
-			-- 				includeInlayFunctionLikeReturnTypeHints = true,
-			-- 				includeInlayFunctionParameterTypeHints = true,
-			-- 				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-			-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-			-- 				includeInlayPropertyDeclarationTypeHints = true,
-			-- 				includeInlayVariableTypeHints = false,
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
-			bufls = {
-				settings = {
-					bufls = {
-						diagnostics = {},
-					},
-				},
-			},
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-			-- LANG: Lua with lua_ls
-			-- lua_ls = {
-			-- 	settings = {
-			-- 		Lua = {
-			--                      runtime = {
-			--                          version = "LuaJIT",
-			--                          path = vim.split(package.path, ";"),
-			--                      },
-			-- 			completion = {
-			-- 				callSnippet = "Replace",
-			-- 			},
-			-- 			diagnostics = {
-			-- 				globals = { "vim" },
-			-- 			},
-			--                      workspace = {
-			--                          library = {
-			--                              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-			--                              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-			--                          },
-			--                      },
-			-- 		},
-			-- 	},
-			-- },
-		}
+    local servers = {
+      gopls = {
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+          },
+        },
+      },
 
-		require("mason").setup()
+      rust_analyzer = {},
 
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
-			"prettierd",
-		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+      -- LANG: Typescript and Javascript with tsserver
+      ts_ls = {
+        settings = {
+          server_capabilities = {
+            documentFormattingProvider = false,
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = false,
+            },
+          },
+          typescript = {
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = false,
+            },
+          },
+        },
+      },
 
-		require("mason-lspconfig").setup({
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
-		})
+      bufls = {
+        settings = {
+          bufls = {
+            diagnostics = {},
+          },
+        },
+      },
+      -- only use eslint if there's a .eslintrc or eslint.config.js file
+      eslint = {
+        root_dir = require("lspconfig.util").root_pattern(".eslintrc.*"),
+      },
+      biome = {
+        root_dir = require("lspconfig.util").root_pattern("biome.json"),
+      },
+      -- LANG: Lua with lua_ls
+      -- lua_ls = {
+      -- 	settings = {
+      -- 		Lua = {
+      --                      runtime = {
+      --                          version = "LuaJIT",
+      --                          path = vim.split(package.path, ";"),
+      --                      },
+      -- 			completion = {
+      -- 				callSnippet = "Replace",
+      -- 			},
+      -- 			diagnostics = {
+      -- 				globals = { "vim" },
+      -- 			},
+      --                      workspace = {
+      --                          library = {
+      --                              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+      --                              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+      --                          },
+      --                      },
+      -- 		},
+      -- 	},
+      -- },
+    }
 
-		-- lsp helper styling
-		local border = "rounded"
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
-	end,
+    require("mason").setup()
+
+    local ensure_installed = vim.tbl_keys(servers or {})
+    vim.list_extend(ensure_installed, {
+      "stylua", -- Used to format Lua code
+      "prettierd",
+    })
+    require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+    require("mason-lspconfig").setup({
+      handlers = {
+        function(server_name)
+          local server = servers[server_name] or {}
+          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+          require("lspconfig")[server_name].setup(server)
+        end,
+      },
+    })
+
+    -- lsp helper styling
+    local border = "rounded"
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+  end,
 }

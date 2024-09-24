@@ -44,6 +44,8 @@
         "/home/sulthonuladib/.local/share/nvim/lazy/copilot-cmp/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/copilot-cmp.git.cloning/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/copilot.lua/lua",
-        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-fzf-native.nvim/lua"
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-fzf-native.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-treesitter-context/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-cmdline.nvim/lua"
     ]
 }
