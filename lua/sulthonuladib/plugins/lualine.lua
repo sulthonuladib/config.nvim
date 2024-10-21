@@ -23,7 +23,7 @@ return {
         },
       },
       sections = {
-        lualine_a = { "mode"},
+        lualine_a = { "mode" },
         lualine_b = { "branch", "diff", "diagnostics" },
         lualine_c = { { "filename", path = 0 } },
         lualine_x = { "fileformat", "filetype" },

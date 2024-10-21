@@ -46,6 +46,13 @@
         "/home/sulthonuladib/.local/share/nvim/lazy/copilot.lua/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/telescope-fzf-native.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/nvim-treesitter-context/lua",
-        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-cmdline.nvim/lua"
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-cmdline.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/colorbuddy.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/csvview.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/gruvbuddy.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/nvim-http/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/obscure.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-project.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/base16-vim/lua"
     ]
 }

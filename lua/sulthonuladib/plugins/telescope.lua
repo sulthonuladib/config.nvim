@@ -5,7 +5,7 @@ return {
     "nvim-telescope/telescope-ui-select.nvim",
     "nvim-telescope/telescope-smart-history.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "nvim-telescope/telescope-project.nvim",
+    -- "nvim-telescope/telescope-project.nvim",
   },
   config = function()
     local telescope = require("telescope")

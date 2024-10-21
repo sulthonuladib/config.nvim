@@ -1,5 +1,5 @@
 vim.g.copilot_node_command = "/home/sulthonuladib/.nvm/versions/node/v20.15.1/bin/node"
-vim.g.node_host_prog = "/home/sulthonuladib/.nvm/versions/node/v20.15.1/lib/node_modules"
+vim.g.node_host_prog = "/home/sulthonuladib/.nvm/versions/node/v20.15.1/lib/node_modules/neovim/bin/cli.js"
 
 require("sulthonuladib")
 -- vim.cmd[[colorscheme tokyonight-night]]

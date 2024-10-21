@@ -1,6 +1,7 @@
 return {
   "tjdevries/colorbuddy.nvim",
   "tjdevries/gruvbuddy.nvim",
+  "tinted-theming/base16-vim",
   {
     "catppuccin/nvim",
     name = "catppuccin",
