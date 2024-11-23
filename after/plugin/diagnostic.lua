@@ -11,7 +11,7 @@ vim.diagnostic.config({
   float = {
     show_header = true,
     border = "rounded",
-    -- source = "always",
+    source = "if_many",
     format = function(d)
       if not d.code and not d.user_data then
         return d.message

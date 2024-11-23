@@ -1,11 +1,11 @@
 local M = {}
 
-M.imap = function(tbl)
-  vim.keymap.set("i", tbl[1], tbl[2], tbl[3])
+M.imap = function(keys, func, desc)
+  vim.keymap.set("n", keys, func, { desc = "LSP: " .. desc })
 end
 
-M.nmap = function(tbl)
-  vim.keymap.set("n", tbl[1], tbl[2], tbl[3])
+M.nmap = function(keys, func, desc)
+  vim.keymap.set("i", keys, func, { desc = "LSP: " .. desc })
 end
 
 return M

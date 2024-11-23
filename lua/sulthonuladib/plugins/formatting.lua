@@ -10,17 +10,20 @@ local js_by_ft = function()
   }
   local biome_files = { "biome.json", "biome.jsonc" }
 
+  local filetype = {}
+
   for _, file in ipairs(prettier_files) do
     if vim.fn.glob(file) ~= "" then
-      return { "prettierd" } -- Use Prettier and ESLint
+      table.insert(filetype, "prettierd")
     end
   end
 
   for _, file in ipairs(biome_files) do
     if vim.fn.glob(file) ~= "" then
-      return { "biome" } -- Use Biome for both formatting and linting
+      table.insert(filetype, "biome")
     end
   end
+  vim.inspect(filetype)
 
   -- Default formatter and linter if no config files are found
   return { "prettierd" }
@@ -36,8 +39,8 @@ return {
         -- typescript = { "biome", "prettierd" },
         -- javascript = { "biome", "prettierd" },
         go = { "gofmt" },
-        javascript = js_by_ft,
-        typescript = js_by_ft,
+        javascript = js_by_ft(),
+        typescript = js_by_ft(),
       },
     })
 
@@ -47,6 +50,8 @@ return {
         lsp_fallback = true,
         quiet = true,
       })
-    end)
+    end, {
+      desc = "Format buffer",
+    })
   end,
 }

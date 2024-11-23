@@ -6,7 +6,8 @@ return {
     require("lualine").setup({
       options = {
         icons_enabled = true,
-        theme = "base16",
+        -- theme = "base16",
+        theme = "auto",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
@@ -24,7 +25,8 @@ return {
       },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics" },
+        -- lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_b = {},
         lualine_c = { { "filename", path = 0 } },
         lualine_x = { "fileformat", "filetype" },
         lualine_y = { "progress" },

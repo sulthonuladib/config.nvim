@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-  local group = vim.api.nvim_create_augroup("custom-treesitter", { clear = true })
+  -- local group = vim.api.nvim_create_augroup("custom-treesitter", { clear = true })
 
   require("nvim-treesitter").setup({
     ensure_install = { "core", "stable" },
@@ -9,6 +9,11 @@ M.setup = function()
     highlight = {
       enable = true,
     },
+    indent = {
+      enable = true,
+      disable = { "ruby" },
+    },
+    additional_vim_regex_highlighting = { "ruby" },
   })
 
   local syntax_on = {
@@ -17,7 +22,7 @@ M.setup = function()
   }
 
   vim.api.nvim_create_autocmd("FileType", {
-    group = group,
+    -- group = group,
     callback = function(args)
       local bufnr = args.buf
       local ft = vim.bo[bufnr].filetype

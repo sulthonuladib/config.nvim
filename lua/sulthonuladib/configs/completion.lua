@@ -2,17 +2,28 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.shortmess:append("c")
 
 local lspkind = require("lspkind")
-lspkind.init({})
+lspkind.init({
+  preset = "codicons",
+})
 
 local cmp = require("cmp")
+-- vim.cmd(":set winhighlight=" .. require("cmp").config.window.bordered().winhighlight)
 
 cmp.setup({
   sources = {
     -- { name = "copilot" },
     { name = "nvim_lsp" },
     { name = "luasnip" },
-    { name = "path" },
+    -- { name = "path" },
     { name = "buffer" },
+  },
+  window = {
+    completion = {
+      border = "rounded",
+    },
+    documentation = {
+      border = "rounded",
+    },
   },
 
   mapping = {
@@ -42,6 +53,8 @@ cmp.setup({
   },
 
   formatting = {
+    expandable_indicator = true,
+    fields = { "abbr", "kind", "menu" },
     format = lspkind.cmp_format({
       mode = "text", -- show only symbol annotations
       maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)

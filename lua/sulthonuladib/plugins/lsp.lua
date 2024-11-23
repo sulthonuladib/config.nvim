@@ -2,8 +2,8 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     { "williamboman/mason.nvim", config = true },
-    "williamboman/mason-lspconfig.nvim",
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    { "williamboman/mason-lspconfig.nvim" },
+    { "WhoIsSethDaniel/mason-tool-installer.nvim" },
     { "j-hui/fidget.nvim", opts = {} },
     -- { "folke/neodev.nvim", opts = {} },
   },
@@ -31,8 +31,7 @@ return {
         map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
         map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
         map("<leader>vd", vim.diagnostic.open_float, "Open [D]iagnostics")
-        map("<leader>]d", vim.diagnostic.get_next, "Next [D]iagnostic")
-        map("<leader>[d", vim.diagnostic.get_prev, "Previous [D]iagnostic")
+
         map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
         map("<leader>vca", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -41,32 +40,14 @@ return {
           vim.lsp.inlay_hint.enable(not enabled)
         end, "[I]nlay [H]int")
 
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        -- map("K", vim.lsp.buf.hover, "Hover Documentation")
+        map("K", function()
+          vim.lsp.buf.hover({
+            border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+          })
+        end, "Hover Documentation")
+
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.server_capabilities.documentHighlightProvider then
-          local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.document_highlight,
-          })
-
-          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.clear_references,
-          })
-
-          vim.api.nvim_create_autocmd("LspDetach", {
-            group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
-            callback = function(event2)
-              vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
-            end,
-          })
-        end
       end,
     })
 
@@ -99,9 +80,9 @@ return {
       -- LANG: Typescript and Javascript with tsserver
       ts_ls = {
         settings = {
-          server_capabilities = {
-            documentFormattingProvider = false,
-          },
+          -- server_capabilities = {
+          --   documentFormattingProvider = false,
+          -- },
           javascript = {
             inlayHints = {
               includeInlayEnumMemberValueHints = true,
@@ -127,42 +108,33 @@ return {
         },
       },
 
-      bufls = {
-        settings = {
-          bufls = {
-            diagnostics = {},
-          },
-        },
-      },
+      -- buf_ls = {
+      --   settings = {
+      --     bufls = {
+      --       diagnostics = {},
+      --     },
+      --   },
+      -- },
       -- only use eslint if there's a .eslintrc or eslint.config.js file
-      eslint = {
-        root_dir = require("lspconfig.util").root_pattern(".eslintrc.*"),
-      },
-      biome = {
-        root_dir = require("lspconfig.util").root_pattern("biome.json"),
-      },
-      -- LANG: Lua with lua_ls
-      -- lua_ls = {
-      -- 	settings = {
-      -- 		Lua = {
-      --                      runtime = {
-      --                          version = "LuaJIT",
-      --                          path = vim.split(package.path, ";"),
-      --                      },
-      -- 			completion = {
-      -- 				callSnippet = "Replace",
-      -- 			},
-      -- 			diagnostics = {
-      -- 				globals = { "vim" },
-      -- 			},
-      --                      workspace = {
-      --                          library = {
-      --                              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-      --                              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-      --                          },
-      --                      },
-      -- 		},
-      -- 	},
+      -- eslint = {
+      --   -- root_dir = require("lspconfig.util").root_pattern(".eslintrc.*"),
+      -- },
+
+      -- html = {
+      --   filetypes = { "html", "templ", "typescriptreact" },
+      -- },
+      -- htmx = {
+      --   filetypes = { "html", "templ", "typescriptreact", "typescript" },
+      -- },
+      -- tailwindcss = {
+      --   filetypes = { "html", "templ", "typescriptreact", "javascriptreact" },
+      --   settings = {
+      --     tailwindCSS = {
+      --       includeLanguages = {
+      --         templ = "html",
+      --       },
+      --     },
+      --   },
       -- },
     }
 
@@ -180,14 +152,18 @@ return {
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+          -- print("Setting up LSP for " .. server_name)
           require("lspconfig")[server_name].setup(server)
         end,
       },
     })
 
-    -- lsp helper styling
     local border = "rounded"
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    --   border = border,
+    -- })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = border,
+    })
   end,
 }

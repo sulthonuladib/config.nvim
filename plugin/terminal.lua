@@ -1,3 +1,5 @@
+local helper = require('sulthonuladib.helpers')
+
 local set = vim.opt_local
 
 -- Set local settings for terminal buffers
@@ -31,4 +33,4 @@ end)
 vim.keymap.set("n", "<leader>tt", function()
   vim.cmd("tabnew")
   vim.cmd("term")
-end)
+end, { desc = "Open a terminal in a new tab" })
