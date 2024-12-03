@@ -1,6 +1,5 @@
 vim.g.mapleader = " "
 local set = vim.keymap.set
--- set("n", "<leader>t", vim.cmd.NvimTreeToggle)
 
 -- on visual mode, can move the highlighted up and down
 set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move the highlighted text down" })
@@ -20,15 +19,18 @@ set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Copy to clipboard" })
 set("n", "<leader>Y", [["+Y]], { desc = "Copy to clipboard" })
 set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Cut to clipboard" })
 
--- This is going to get me cancelled
-set("i", "<C-c>", "<Esc>")
+-- I know...
+set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
 
-set("n", "Q", "<nop>")
+-- I know........
+set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
+
 set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- set("n", "<leader>f", vim.lsp.buf.format)
 
-set("n", "<C-k>", "<cmd>cnext<CR>zz")
-set("n", "<C-j>", "<cmd>cprev<CR>zz")
+-- NOTE: currently i didn't use quickfix list switching that much
+-- set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Go to next quickfix item" })
+-- set("n", "<C-j>", "<cmd>cprev<CR>zz")
 
 -- mark any word and press <leader>s to search and replace
 set(

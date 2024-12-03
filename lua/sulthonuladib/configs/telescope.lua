@@ -84,7 +84,7 @@ telescope.setup({
     },
   },
   extensions = {
-    fzf = {},
+    -- fzf = {},
     ["ui-select"] = {
       require("telescope.themes").get_dropdown({}),
     },
@@ -92,7 +92,7 @@ telescope.setup({
 })
 _ = require("telescope").load_extension("ui-select")
 _ = require("telescope").load_extension("smart_history")
-_ = require("telescope").load_extension("fzf")
+-- _ = require("telescope").load_extension("fzf")
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>pf", builtin.find_files, {
