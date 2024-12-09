@@ -18,18 +18,18 @@ return {
           timeout_ms = 1000,
           autosave_changes = true,
         },
-        -- git = {
-        --   -- Return true to automatically git add/mv/rm files
-        --   add = function(path)
-        --     return false
-        --   end,
-        --   mv = function(src_path, dest_path)
-        --     return false
-        --   end,
-        --   rm = function(path)
-        --     return false
-        --   end,
-        -- },
+        git = {
+          -- Return true to automatically git add/mv/rm files
+          add = function(path)
+            return false
+          end,
+          mv = function(src_path, dest_path)
+            return true
+          end,
+          rm = function(path)
+            return false
+          end,
+        },
       })
 
       -- Open parent directory in current window

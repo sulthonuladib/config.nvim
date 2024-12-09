@@ -9,7 +9,7 @@ return {
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+      group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
       callback = function(event)
         local map = function(keys, func, desc)
           vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
@@ -51,8 +51,12 @@ return {
       end,
     })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    local capabilities = nil
+    if pcall(require, "cmp_nvim_lsp") then
+      capabilities = require("cmp_nvim_lsp").default_capabilities()
+    end
+
+    -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
     local servers = {
       gopls = {
@@ -108,34 +112,27 @@ return {
         },
       },
 
-      -- buf_ls = {
-      --   settings = {
-      --     bufls = {
-      --       diagnostics = {},
-      --     },
-      --   },
-      -- },
-      -- only use eslint if there's a .eslintrc or eslint.config.js file
-      -- eslint = {
-      --   -- root_dir = require("lspconfig.util").root_pattern(".eslintrc.*"),
-      -- },
-
       -- html = {
-      --   filetypes = { "html", "templ", "typescriptreact" },
+      --   filetypes = { "html", "templ" },
       -- },
       -- htmx = {
-      --   filetypes = { "html", "templ", "typescriptreact", "typescript" },
+      --   filetypes = { "html", "templ" },
       -- },
-      -- tailwindcss = {
-      --   filetypes = { "html", "templ", "typescriptreact", "javascriptreact" },
-      --   settings = {
-      --     tailwindCSS = {
-      --       includeLanguages = {
-      --         templ = "html",
-      --       },
-      --     },
-      --   },
-      -- },
+      tailwindcss = {
+        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react" },
+        settings = {
+          tailwindCSS = {
+            includeLanguages = {
+              templ = "html",
+            },
+          },
+        },
+      },
+      templ = {
+        filetypes = { "templ" },
+        root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
+        settings = {},
+      },
     }
 
     require("mason").setup()

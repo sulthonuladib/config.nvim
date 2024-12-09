@@ -3,6 +3,10 @@ return {
   "tjdevries/gruvbuddy.nvim",
   "tinted-theming/base16-vim",
   {
+    "rose-pine/neovim",
+    name = "rose-pine",
+  },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
@@ -74,6 +78,12 @@ return {
       local tokyonight = require("tokyonight")
       tokyonight.setup({
         style = "storm",
+        on_highlights = function(colors)
+          colors.bg_statusline = colors.bg
+          colors.fg_statusline = colors.fg
+          colors.bg_sidebar = colors.bg
+          colors.bg_float = colors.bg
+        end,
         on_colors = function(colors)
           colors.border = colors.fg
           colors.hint = colors.fg

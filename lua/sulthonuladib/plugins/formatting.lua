@@ -41,6 +41,7 @@ return {
         go = { "gofmt" },
         javascript = js_by_ft(),
         typescript = js_by_ft(),
+        templ = { "templ" },
       },
     })
 
