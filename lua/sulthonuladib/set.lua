@@ -31,8 +31,8 @@ opt.scrolloff = 10
 opt.signcolumn = "yes"
 -- opt.isfname:append("@-@")
 
-opt.updatetime = 50
-opt.timeoutlen = 300
+-- opt.updatetime = 50
+-- opt.timeoutlen = 300
 opt.smoothscroll = true
 opt.cursorline = true
 
@@ -49,4 +49,3 @@ vim.opt.viminfo:remove("m")
 -- lazy nvim-tree integration, disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
