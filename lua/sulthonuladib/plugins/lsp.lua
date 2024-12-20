@@ -56,8 +56,6 @@ return {
       capabilities = require("cmp_nvim_lsp").default_capabilities()
     end
 
-    -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
     local servers = {
       gopls = {
         settings = {
