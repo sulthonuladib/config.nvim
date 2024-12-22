@@ -116,16 +116,16 @@ return {
       -- htmx = {
       --   filetypes = { "html", "templ" },
       -- },
-      tailwindcss = {
-        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react" },
-        settings = {
-          tailwindCSS = {
-            includeLanguages = {
-              templ = "html",
-            },
-          },
-        },
-      },
+      -- tailwindcss = {
+      --   filetypes = { "html", "templ", "astro", "typescript", "javascript", "react" },
+      --   settings = {
+      --     tailwindCSS = {
+      --       includeLanguages = {
+      --         templ = "html",
+      --       },
+      --     },
+      --   },
+      -- },
       templ = {
         filetypes = { "templ" },
         root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),

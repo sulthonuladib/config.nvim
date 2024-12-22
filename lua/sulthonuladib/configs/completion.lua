@@ -7,11 +7,10 @@ lspkind.init({
 })
 
 local cmp = require("cmp")
--- vim.cmd(":set winhighlight=" .. require("cmp").config.window.bordered().winhighlight)
 
 cmp.setup({
   sources = {
-    -- { name = "copilot" },
+    { name = "copilot" },
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "path" },
@@ -69,6 +68,25 @@ cmp.setup({
         return vim_item
       end,
     }),
+  },
+
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      require("copilot_cmp.comparators").prioritize,
+
+      -- Below is the default comparitor list and order for nvim-cmp
+      cmp.config.compare.offset,
+      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
   },
 })
 
