@@ -38,6 +38,7 @@ opt.cursorline = true
 
 opt.colorcolumn = "80"
 opt.inccommand = "split"
+opt.termguicolors = true
 
 -- nvim title
 vim.o.title = true

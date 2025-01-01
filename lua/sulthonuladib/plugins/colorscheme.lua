@@ -5,6 +5,17 @@ return {
   {
     "rose-pine/neovim",
     name = "rose-pine",
+    config = function()
+      require("rose-pine").setup({
+        styles = {
+          italic = false,
+        },
+        highlight_groups = {
+          comments = { italic = true },
+          keywords = { italic = false },
+        },
+      })
+    end,
   },
   {
     "catppuccin/nvim",

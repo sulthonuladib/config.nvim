@@ -23,9 +23,7 @@ local js_by_ft = function()
       table.insert(filetype, "biome")
     end
   end
-  vim.inspect(filetype)
 
-  -- Default formatter and linter if no config files are found
   return { "prettierd" }
 end
 

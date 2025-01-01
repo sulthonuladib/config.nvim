@@ -52,6 +52,10 @@
         "/home/sulthonuladib/.local/share/nvim/lazy/todo-comments.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/vim-dadbod/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/vim-dadbod-completion/lua",
-        "/home/sulthonuladib/.local/share/nvim/lazy/vim-dadbod-ui/lua"
+        "/home/sulthonuladib/.local/share/nvim/lazy/vim-dadbod-ui/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/mini.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/mini.statusline/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/rose-pine/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-frecency.nvim/lua"
     ]
 }

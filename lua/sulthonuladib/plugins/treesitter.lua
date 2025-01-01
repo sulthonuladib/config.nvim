@@ -11,7 +11,7 @@ return {
       require("sulthonuladib.configs.treesitter").setup()
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-context",
+  -- },
 }
