@@ -1,15 +1,19 @@
 return {
-  {
-    "echasnovski/mini.nvim",
-    enabled = false,
-    config = function()
-      require("mini.statusline").setup({ use_icons = true })
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.nvim",
+  --   enabled = false,
+  --   config = function()
+  --     require("mini.statusline").setup({ use_icons = true })
+  --   end,
+  -- },
+
   {
     "nvim-lualine/lualine.nvim",
     -- enabled = false,
-    dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
+    dependencies = {
+      { "nvim-tree/nvim-web-devicons", opt = true },
+      -- { "AndreM222/copilot-lualine" },
+    },
 
     config = function()
       require("lualine").setup({
@@ -34,7 +38,11 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { "branch", "diff", "diagnostics" },
+          lualine_b = {
+            "branch",
+            "diagnostics",
+            -- "copilot",
+          },
           -- lualine_b = {},
           lualine_c = { { "filename", path = 0 } },
           lualine_x = { "fileformat", "filetype" },

@@ -5,7 +5,8 @@
         "lua/?/init.lua"
     ],
     "diagnostics.globals": [
-        "vim"
+        "vim",
+        "pcall"
     ],
     "workspace.checkThirdParty": false,
     "workspace.library": [
@@ -56,6 +57,9 @@
         "/home/sulthonuladib/.local/share/nvim/lazy/mini.nvim/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/mini.statusline/lua",
         "/home/sulthonuladib/.local/share/nvim/lazy/rose-pine/lua",
-        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-frecency.nvim/lua"
+        "/home/sulthonuladib/.local/share/nvim/lazy/telescope-frecency.nvim/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/copilot-cmp/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/copilot.lua/lua",
+        "/home/sulthonuladib/.local/share/nvim/lazy/present.nvim/lua"
     ]
 }

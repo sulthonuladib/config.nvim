@@ -21,7 +21,9 @@ return {
 
         vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
         imap("<C-h>", function()
-          vim.lsp.buf.signature_help()
+          vim.lsp.buf.signature_help({
+            border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" },
+          })
         end, "Signature [H]elp")
         map("<leader>gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
         map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
@@ -78,6 +80,12 @@ return {
       },
 
       rust_analyzer = {},
+      -- phpactor = {
+      --   filetypes = { "php", "blade" },
+      -- },
+      intelephense = {
+        filetypes = { "php", "blade" },
+      },
 
       -- LANG: Typescript and Javascript with tsserver
       ts_ls = {
@@ -116,16 +124,16 @@ return {
       -- htmx = {
       --   filetypes = { "html", "templ" },
       -- },
-      -- tailwindcss = {
-      --   filetypes = { "html", "templ", "astro", "typescript", "javascript", "react" },
-      --   settings = {
-      --     tailwindCSS = {
-      --       includeLanguages = {
-      --         templ = "html",
-      --       },
-      --     },
-      --   },
-      -- },
+      tailwindcss = {
+        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react", "blade" },
+        settings = {
+          tailwindCSS = {
+            includeLanguages = {
+              templ = "html",
+            },
+          },
+        },
+      },
       templ = {
         filetypes = { "templ" },
         root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
@@ -137,12 +145,14 @@ return {
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      "stylua", -- Used to format Lua code
-      "prettierd",
+      -- "stylua", -- Used to format Lua code
+      -- "prettierd",
     })
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
     require("mason-lspconfig").setup({
+      automatic_installation = true,
+      ensure_installed = ensure_installed,
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
@@ -153,12 +163,13 @@ return {
       },
     })
 
-    local border = "rounded"
+    -- NOTE: deprecated
+    -- local border = "rounded"
     -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     --   border = border,
     -- })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-      border = border,
-    })
+    -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    --   border = border,
+    -- })
   end,
 }

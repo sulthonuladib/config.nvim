@@ -27,14 +27,8 @@ return {
       },
     },
     "saadparwaiz1/cmp_luasnip",
-    "zbirenbaum/copilot.lua",
-    "zbirenbaum/copilot-cmp",
   },
   config = function()
-    require("copilot").setup({
-      panel = { enabled = false },
-    })
-    require("copilot_cmp").setup()
     require("sulthonuladib.configs.completion")
   end,
 }

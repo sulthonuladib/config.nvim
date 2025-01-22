@@ -9,7 +9,7 @@ return {
       require("rose-pine").setup({
         styles = {
           italic = false,
-          transparency = true,
+          -- transparency = true,
         },
         transparent = true,
         dim_inactive_windows = true,
