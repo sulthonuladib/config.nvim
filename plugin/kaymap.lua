@@ -1,5 +1,5 @@
 local set = vim.keymap.set
-local fn = require('sulthonuladib.f').fn
+local fn = require("sulthonuladib.f").fn
 
 set("n", "<M-h>", "<c-w>5<")
 set("n", "<M-l>", "<c-w>5>")

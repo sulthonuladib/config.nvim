@@ -10,6 +10,7 @@ local cmp = require("cmp")
 
 cmp.setup({
   sources = {
+    { name = "lazydev", group_index = 0 },
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "path" },
