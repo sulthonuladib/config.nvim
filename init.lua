@@ -5,8 +5,8 @@ require("sulthonuladib")
 -- vim.cmd.colorscheme("tokyonight-night")
 -- vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000", border = "orange" }
 
--- vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("catppuccin")
 -- vim.cmd.colorscheme("obscure")
 -- vim.cmd.colorscheme("gruvbuddy")
 -- vim.cmd.colorscheme("base16-tomorrow-night-eighties")
-vim.cmd.colorscheme("rose-pine")
+-- vim.cmd.colorscheme("rose-pine")

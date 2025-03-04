@@ -1,8 +1,8 @@
-vim.filetype.add({
-  extension = {
-    templ = "templ",
-  },
-  pattern = {
-    [".*%.php%.blade"] = "blade",
-  },
-})
+-- vim.filetype.add({
+--   extension = {
+--     templ = "templ",
+--   },
+--   pattern = {
+--     [".*%.php%.blade"] = "blade",
+--   },
+-- })

@@ -38,7 +38,7 @@ return {
         -- javascript = { "biome", "prettierd" },
         go = { "gofmt" },
         javascript = js_by_ft(),
-        blade = { "blade-formatter" },
+        -- blade = { "blade-formatter" },
 
         typescript = js_by_ft(),
         templ = { "templ" },

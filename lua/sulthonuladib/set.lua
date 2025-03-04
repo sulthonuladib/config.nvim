@@ -1,6 +1,6 @@
 local opt = vim.opt
 
-opt.nu = true
+-- opt.nu = true
 opt.relativenumber = true
 opt.showmode = false
 opt.showcmd = true

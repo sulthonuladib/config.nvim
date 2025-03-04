@@ -26,11 +26,6 @@ set("i", "<C-c>", "<Esc>", { desc = "Exit insert mode" })
 set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
 
 set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
--- set("n", "<leader>f", vim.lsp.buf.format)
-
--- NOTE: currently i didn't use quickfix list switching that much
--- set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Go to next quickfix item" })
--- set("n", "<C-j>", "<cmd>cprev<CR>zz")
 
 -- mark any word and press <leader>s to search and replace
 set(
