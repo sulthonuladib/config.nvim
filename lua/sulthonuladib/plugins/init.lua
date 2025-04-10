@@ -6,6 +6,7 @@ return {
   {
     "nvim-lua/plenary.nvim",
   },
+  -- { 'wakatime/vim-wakatime', lazy = false },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
