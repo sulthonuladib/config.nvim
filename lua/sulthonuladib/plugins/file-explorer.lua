@@ -13,6 +13,7 @@ return {
         view_options = {
           show_hidden = true,
         },
+        watch_for_changes = true,
         lsp_file_methods = {
           enabled = true,
           timeout_ms = 1000,

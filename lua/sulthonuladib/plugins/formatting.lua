@@ -6,9 +6,9 @@ local js_by_ft = function()
     ".prettierrc.yml",
     ".prettierrc",
     ".prettierrc.toml",
-    "eslint.config.js",
   }
   local biome_files = { "biome.json", "biome.jsonc" }
+  local has_eslint = { "eslint.config.js" }
 
   local filetype = {}
 

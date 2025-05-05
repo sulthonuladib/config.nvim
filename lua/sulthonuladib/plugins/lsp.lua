@@ -1,3 +1,12 @@
+local function typescript_organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = { vim.api.nvim_buf_get_name(0) },
+    title = "",
+  }
+  vim.lsp.Client:exec_cmd("_typescript.organizeImports")
+end
+
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -59,25 +68,25 @@ return {
     end
 
     local servers = {
-      gopls = {
-        settings = {
-          gopls = {
-            analyses = {
-              unusedparams = true,
-            },
-            staticcheck = true,
-            hints = {
-              assignVariableTypes = true,
-              compositeLiteralFields = true,
-              compositeLiteralTypes = true,
-              constantValues = true,
-              functionTypeParameters = true,
-              parameterNames = true,
-              rangeVariableTypes = true,
-            },
-          },
-        },
-      },
+      -- gopls = {
+      --   settings = {
+      --     gopls = {
+      --       analyses = {
+      --         unusedparams = true,
+      --       },
+      --       staticcheck = true,
+      --       hints = {
+      --         assignVariableTypes = true,
+      --         compositeLiteralFields = true,
+      --         compositeLiteralTypes = true,
+      --         constantValues = true,
+      --         functionTypeParameters = true,
+      --         parameterNames = true,
+      --         rangeVariableTypes = true,
+      --       },
+      --     },
+      --   },
+      -- },
 
       rust_analyzer = {},
       -- phpactor = {
@@ -90,34 +99,21 @@ return {
       -- LANG: Typescript and Javascript with tsserver
       ts_ls = {
         settings = {
-          -- server_capabilities = {
-          --   documentFormattingProvider = false,
-          -- },
-          javascript = {
-            inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayVariableTypeHints = false,
-            },
+          server_capabilities = {
+            -- documentFormattingProvider = false,
+            -- are there a capabilities for organizing import
           },
-          typescript = {
-            inlayHints = {
-              includeInlayEnumMemberValueHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayVariableTypeHints = false,
-            },
+        },
+        commands = {
+          OrganizeImports = {
+            typescript_organize_imports,
+            description = "Organize Imports",
           },
         },
       },
-
+      docker_compose_language_service = {
+        filetypes = { "yaml.docker-compose", "yaml" },
+      },
       -- html = {
       --   filetypes = { "html", "templ" },
       -- },
@@ -125,7 +121,7 @@ return {
       --   filetypes = { "html", "templ" },
       -- },
       tailwindcss = {
-        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react", "blade" },
+        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react", "blade", "typescriptreact" },
         settings = {
           tailwindCSS = {
             includeLanguages = {
@@ -157,7 +153,7 @@ return {
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          -- print("Setting up LSP for " .. server_name)
+
           require("lspconfig")[server_name].setup(server)
         end,
       },
