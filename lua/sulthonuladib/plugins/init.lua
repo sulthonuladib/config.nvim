@@ -16,4 +16,9 @@ return {
       -- refer to the configuration section below
     },
   },
+  -- {
+  --   "vyfor/cord.nvim",
+  --   build = ":Cord update",
+  --   -- opts = {}
+  -- },
 }
