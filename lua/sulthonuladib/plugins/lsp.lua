@@ -89,12 +89,6 @@ return {
       -- },
 
       rust_analyzer = {},
-      -- phpactor = {
-      --   filetypes = { "php", "blade" },
-      -- },
-      intelephense = {
-        filetypes = { "php", "blade" },
-      },
 
       -- LANG: Typescript and Javascript with tsserver
       ts_ls = {
@@ -121,7 +115,7 @@ return {
       --   filetypes = { "html", "templ" },
       -- },
       tailwindcss = {
-        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react", "blade", "typescriptreact" },
+        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react", "typescriptreact" },
         settings = {
           tailwindCSS = {
             includeLanguages = {

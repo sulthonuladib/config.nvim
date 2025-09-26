@@ -2,7 +2,4 @@
 --   extension = {
 --     templ = "templ",
 --   },
---   pattern = {
---     [".*%.php%.blade"] = "blade",
---   },
 -- })

@@ -5,7 +5,6 @@ return {
     branch = "main",
     lazy = false,
     dependencies = {
-      "EmranMR/tree-sitter-blade",
       "nvim-treesitter/nvim-treesitter-context",
     },
     config = function()

@@ -39,24 +39,6 @@ M.setup = function()
   })
 
   -- external parser that not listed on treesitter
-  vim.api.nvim_create_autocmd("User", {
-    group = group,
-    pattern = "TSUpdate",
-    callback = function()
-      local parser_config = require("nvim-treesitter.parsers")
-
-      parser_config.blade = {
-        tier = 0,
-        ---@diagnostic disable-next-line: missing-fields
-        install_info = {
-          url = "https://github.com/EmranMR/tree-sitter-blade",
-          files = { "src/parser.c" },
-          branch = "main",
-        },
-        filetype = "blade",
-      }
-    end,
-  })
 end
 
 M.setup()
