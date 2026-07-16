@@ -1,5 +1,3 @@
-local helper = require('sulthonuladib.helpers')
-
 local set = vim.opt_local
 
 -- Set local settings for terminal buffers
@@ -21,12 +19,6 @@ vim.keymap.set("n", "<leader>ht", function()
   vim.cmd.wincmd("J")
   vim.api.nvim_win_set_height(0, 12)
   vim.wo.winfixheight = true
-  vim.cmd.term()
-end)
-
--- Open a terminal at the right of the screen based on current window width.
-vim.keymap.set("n", "<leader>vt", function()
-  vim.cmd("rightbelow vnew")
   vim.cmd.term()
 end)
 
