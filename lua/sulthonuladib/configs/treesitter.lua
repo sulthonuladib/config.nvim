@@ -18,7 +18,7 @@ M.setup = function()
 
   local syntax_on = {
     elixir = true,
-    php = true,
+    -- php = true,
   }
 
   vim.api.nvim_create_autocmd("FileType", {

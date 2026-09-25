@@ -90,21 +90,22 @@ return {
 
       rust_analyzer = {},
 
+      vtsls = {},
       -- LANG: Typescript and Javascript with tsserver
-      ts_ls = {
-        settings = {
-          server_capabilities = {
-            -- documentFormattingProvider = false,
-            -- are there a capabilities for organizing import
-          },
-        },
-        commands = {
-          OrganizeImports = {
-            typescript_organize_imports,
-            description = "Organize Imports",
-          },
-        },
-      },
+      -- ts_ls = {
+      --   settings = {
+      --     server_capabilities = {
+      --       -- documentFormattingProvider = false,
+      --       -- are there a capabilities for organizing import
+      --     },
+      --   },
+      --   commands = {
+      --     OrganizeImports = {
+      --       typescript_organize_imports,
+      --       description = "Organize Imports",
+      --     },
+      --   },
+      -- },
       docker_compose_language_service = {
         filetypes = { "yaml.docker-compose", "yaml" },
       },
@@ -152,14 +153,5 @@ return {
         end,
       },
     })
-
-    -- NOTE: deprecated
-    -- local border = "rounded"
-    -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    --   border = border,
-    -- })
-    -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    --   border = border,
-    -- })
   end,
 }
