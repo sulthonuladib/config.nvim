@@ -4,7 +4,7 @@ opt.nu = true
 opt.relativenumber = true
 opt.showmode = false
 opt.showcmd = true
-opt.cmdheight = 1 -- Height of the command bar
+-- opt.cmdheight = 1 -- Height of the command bar
 
 opt.tabstop = 4
 opt.softtabstop = 4
@@ -47,6 +47,6 @@ opt.titlestring = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. " - nvim"
 -- disable vim mark
 vim.opt.viminfo:remove("m")
 
--- lazy nvim-tree integration, disable netrw
+-- we use oil, we love oil
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
