@@ -8,8 +8,8 @@ return {
       "nvim-treesitter/nvim-treesitter-context",
     },
     config = function()
+      require("treesitter-context").setup()
       require("sulthonuladib.configs.treesitter").setup()
-      require('treesitter-context').setup();
     end,
   },
 }

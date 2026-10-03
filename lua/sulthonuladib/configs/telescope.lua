@@ -29,6 +29,9 @@ telescope.setup({
     file_ignore_patterns = {
       "%_templ.go",
       "bun.lock",
+      -- vendored agent references (repos/effect, repos/foldkit); keep them out
+      -- of find_files / live_grep / LSP pickers. Agents still read them directly.
+      "^repos/",
     },
     mappings = {
       i = {

@@ -11,5 +11,5 @@ set("n", "<space>tn", vim.cmd.tabnext, { desc = "Move to next tab" })
 set("n", "<space>tp", vim.cmd.tabprevious, { desc = "Move to previous tab" })
 
 -- diagnostic
-set("n", "]d", fn(vim.diagnostic.jump, { count = 1, float = true }))
-set("n", "[d", fn(vim.diagnostic.jump, { count = -1, float = true }))
+-- set("n", "]d", fn(vim.diagnostic.jump, { count = 1, float = true }))
+-- set("n", "[d", fn(vim.diagnostic.jump, { count = -1, float = true }))

@@ -1,11 +1,11 @@
-local function typescript_organize_imports()
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(0) },
-    title = "",
-  }
-  vim.lsp.Client:exec_cmd("_typescript.organizeImports")
-end
+-- local function typescript_organize_imports()
+--   local params = {
+--     command = "_typescript.organizeImports",
+--     arguments = { vim.api.nvim_buf_get_name(0) },
+--     title = "",
+--   }
+--   vim.lsp.Client:exec_cmd("_typescript.organizeImports")
+-- end
 
 return {
   "neovim/nvim-lspconfig",
@@ -68,29 +68,20 @@ return {
     end
 
     local servers = {
-      -- gopls = {
-      --   settings = {
-      --     gopls = {
-      --       analyses = {
-      --         unusedparams = true,
-      --       },
-      --       staticcheck = true,
-      --       hints = {
-      --         assignVariableTypes = true,
-      --         compositeLiteralFields = true,
-      --         compositeLiteralTypes = true,
-      --         constantValues = true,
-      --         functionTypeParameters = true,
-      --         parameterNames = true,
-      --         rangeVariableTypes = true,
-      --       },
-      --     },
-      --   },
-      -- },
+      tsc = {
+        settings = {
+          ["js/ts"] = {
+            server_capabilities = {
+              documentFormattingProvider = false,
+            },
+          },
+        },
+      },
+      oxlint = {
+        root_dir = require("lspconfig.util").root_pattern(".oxlintrc"),
+      },
 
       rust_analyzer = {},
-
-      vtsls = {},
       -- LANG: Typescript and Javascript with tsserver
       -- ts_ls = {
       --   settings = {
@@ -106,33 +97,39 @@ return {
       --     },
       --   },
       -- },
-      docker_compose_language_service = {
-        filetypes = { "yaml.docker-compose", "yaml" },
-      },
+      -- docker_compose_language_service = {
+      --   filetypes = { "yaml.docker-compose", "yaml" },
+      -- },
       -- html = {
       --   filetypes = { "html", "templ" },
       -- },
       -- htmx = {
       --   filetypes = { "html", "templ" },
       -- },
-      tailwindcss = {
-        filetypes = { "html", "templ", "astro", "typescript", "javascript", "react", "typescriptreact" },
-        settings = {
-          tailwindCSS = {
-            includeLanguages = {
-              templ = "html",
-            },
-          },
-        },
-      },
-      templ = {
-        filetypes = { "templ" },
-        root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
-        settings = {},
-      },
+      -- tailwindcss = {
+      --   filetypes = { "html", "templ", "astro", "typescript", "javascript", "react", "typescriptreact" },
+      --   settings = {
+      --     tailwindCSS = {
+      --       includeLanguages = {
+      --         templ = "html",
+      --       },
+      --     },
+      --   },
+      -- },
+      -- templ = {
+      --   filetypes = { "templ" },
+      --   root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
+      --   settings = {},
+      -- },
     }
 
     require("mason").setup()
+    -- vim.lsp.config("tsc", {
+    --   cmd = { "tsc", "--lsp", "--stdio" },
+    --   filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    --   settings = {},
+    -- })
+    -- vim.lsp.enable("tsc")
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
